@@ -1,0 +1,11 @@
+const String loginbackground = "assets/image/image1.jpg";
+const String loginbackground1 = "assets/image/image2.jpeg";
+const String loginbackground2 = "assets/image/image3.jpeg";
+const String loginbackground3 = "assets/image/image4.jpeg";
+const String drawerbackground = "assets/image/image5.jpeg";
+const String drawerlogo = "assets/image/image6.jpg";
+const String birthday = "assets/image/birth.jpeg";
+const String haldi1 = "assets/image/haldi1.jpeg";
+const String babyshower = "assets/image/baby.jpeg";
+const String wedding = "assets/image/wedding.jpeg";
+const String paymentQR = "assets/image/payment.jpg";
