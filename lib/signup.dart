@@ -1,6 +1,10 @@
+import 'package:event/dbhelper/model.dart';
+import 'package:event/dbhelper/sqfliteDatabase.dart';
+import 'package:event/homepage.dart';
+import 'package:event/main.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
+import 'package:sqflite/sqflite.dart';
 import 'images.dart';
 
 class page3 extends StatefulWidget {
@@ -14,13 +18,17 @@ class _page3state extends State<page3> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _isObscure = true;
 
+  var nameController = new TextEditingController();
+  var emailController = new TextEditingController();
+  var passwordController = new TextEditingController();
+
   void toggle() {
     setState(() {
       _isObscure = !_isObscure;
     });
   }
 
-  void validate() {
+  validate() {
     if (formkey.currentState!.validate()) {
       setState(() {
         Navigator.pushNamed(context, 'page2');
@@ -57,6 +65,7 @@ class _page3state extends State<page3> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             labelText: "Email",
                             border: OutlineInputBorder(),
@@ -70,6 +79,7 @@ class _page3state extends State<page3> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
+                        controller: nameController,
                         decoration: InputDecoration(
                           labelText: "FULL NAME",
                           border: OutlineInputBorder(),
@@ -81,6 +91,7 @@ class _page3state extends State<page3> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
+                          controller: passwordController,
                           maxLength: 8,
                           obscureText: _isObscure,
                           decoration: InputDecoration(
@@ -108,12 +119,37 @@ class _page3state extends State<page3> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
-                            onPressed: validate, child: Text("Sign In")),
+                            onPressed: () {
+                              _insertData(
+                                  nameController.text,
+                                  emailController.text,
+                                  passwordController.text);
+                            },
+                            child: Text("Sign In")),
                       ),
                     ),
                   ],
                 )),
           ),
         ));
+  }
+
+  _insertData(String name, String email, String password) async {
+    if (formkey.currentState!.validate()) {
+      sqfliteDbmodel data =
+          sqfliteDbmodel(name: name, email: email, password: password);
+      var response = await sqfliteData().insertRecord(data);
+
+      if (response != 0) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("record inserted.")));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("something wrong while inserting Record.")));
+      }
+      setState(() {
+        Navigator.pushNamed(context, 'page2');
+      });
+    }
   }
 }
