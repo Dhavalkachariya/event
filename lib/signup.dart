@@ -1,10 +1,7 @@
 import 'package:event/dbhelper/model.dart';
-import 'package:event/dbhelper/sqfliteDatabase.dart';
-import 'package:event/homepage.dart';
-import 'package:event/main.dart';
+import 'dbhelper/sqfliteDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:sqflite/sqflite.dart';
 import 'images.dart';
 
 class page3 extends StatefulWidget {
@@ -138,7 +135,7 @@ class _page3state extends State<page3> {
     if (formkey.currentState!.validate()) {
       sqfliteDbmodel data =
           sqfliteDbmodel(name: name, email: email, password: password);
-      var response = await sqfliteData().insertRecord(data);
+      var response = await sqfliteDatabase().insertRecord(data);
 
       if (response != 0) {
         ScaffoldMessenger.of(context)

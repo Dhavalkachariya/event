@@ -2,9 +2,9 @@ import 'package:event/dbhelper/model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class sqfliteData {
-  final _dbName = "employee.db";
-  final _tablename = "users";
+class sqfliteDatabase {
+  final _dbName = "customer.db";
+  final _tablename = "admin";
 
   Future<Database> initDb() async {
     String path = await getDatabasesPath();

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:sqflite/sqflite.dart';
-
 sqfliteDbmodel sqfliteDbmodelFromJson(String str) =>
     sqfliteDbmodel.fromJson(json.decode(str));
 

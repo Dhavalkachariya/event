@@ -1,7 +1,5 @@
 import 'package:event/aboutus.dart';
 import 'package:event/bookevent.dart';
-import 'package:event/haldi.dart';
-
 import 'package:event/images.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
@@ -222,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         GestureDetector(
                           onTap: () {
