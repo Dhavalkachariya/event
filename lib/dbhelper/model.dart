@@ -17,7 +17,10 @@ class sqfliteDbmodel {
   String password;
 
   factory sqfliteDbmodel.fromJson(Map<String, dynamic> json) => sqfliteDbmodel(
-      name: json["name"], email: json["email"], password: json["password"]);
+        name: json["name"],
+        email: json["email"],
+        password: json["password"],
+      );
 
   Map<String, dynamic> toJson() => {
         "name": jsonEncode(name),
@@ -25,3 +28,26 @@ class sqfliteDbmodel {
         "password": jsonEncode(password),
       };
 }
+
+// class sqfliteDbmodel {
+//   String name;
+//   String email;
+//   String password;
+
+//   sqfliteDbmodel(this.name, this.email, this.password);
+
+//   Map<String, dynamic> toMap() {
+//     var map = <String, dynamic>{
+//       'name': name,
+//       'email': email,
+//       'password': password
+//     };
+//     return map;
+//   }
+
+//  fromMap(Map<String, dynamic> map) {
+//     name = map['name'];
+//     email = map['email'];
+//     password = map['password'];
+//   }
+// }

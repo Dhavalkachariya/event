@@ -1,4 +1,6 @@
 import 'package:event/dbhelper/model.dart';
+import 'package:event/homepage.dart';
+import 'comHelper.dart';
 import 'dbhelper/sqfliteDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -32,6 +34,36 @@ class _page3state extends State<page3> {
       });
     }
   }
+
+  // var _SqfliteDatabase;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _SqfliteDatabase = sqfliteDatabase();
+  // }
+
+  // signUp(String name, String email, String password) async {
+
+  //   String uname = nameController.text;
+  //   String email = emailController.text;
+  //   String passwd =passwordController.text;
+
+  //   if (formkey.currentState!.validate()) {
+  //     formkey.currentState?.save();
+
+  //       sqfliteDbmodel uModel = sqfliteDbmodel(uname,email,passwd);
+  //       await _SqfliteDatabase.insertRecord(uModel).then((userData) {
+  //         alertDialog(context, "Successfully Saved");
+
+  //         Navigator.push(
+  //             context, MaterialPageRoute(builder: (_) => Page2()));
+  //       }).catchError((error) {
+  //         print(error);
+  //         alertDialog(context, "Error: Data Save Fail");
+  //       });
+  //     }
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +100,7 @@ class _page3state extends State<page3> {
                             border: OutlineInputBorder(),
                             prefixIcon: Icon(Icons.mail),
                           ),
+                          autofillHints: [AutofillHints.email],
                           validator: MultiValidator([
                             RequiredValidator(errorText: "Required"),
                             EmailValidator(errorText: "not vallid"),
@@ -139,7 +172,7 @@ class _page3state extends State<page3> {
 
       if (response != 0) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("record inserted.")));
+            .showSnackBar(SnackBar(content: Text("sign up successfully.")));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("something wrong while inserting Record.")));
