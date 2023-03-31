@@ -6,9 +6,13 @@ class sqfliteDatabase {
   final _dbName = "customer.db";
   final _tablename = "admin";
 
+
   final String columnName = "name";
   final String columnUserName = "email";
   final String columnPassword = "password";
+
+
+
 
   Future<Database> initDb() async {
     String path = await getDatabasesPath();
@@ -25,10 +29,12 @@ class sqfliteDatabase {
 
   Future<int> insertRecord(sqfliteDbmodel data) async {
     final Database db = await initDb();
-    print(data.toJson());
-    var result = await db.insert(_tablename, data.toJson());
+    print(data.toMap());
+    var result = await db.insert(_tablename, data.toMap());
     return result;
   }
+
+
 
   Future<sqfliteDbmodel?> getLoginUser(String email, String password) async {
     final Database db = await initDb();
@@ -36,10 +42,29 @@ class sqfliteDatabase {
         "$columnUserName == '$email' AND "
         "$columnPassword == '$password'");
 
-    if (result.isNotEmpty) {
-      return sqfliteDbmodel.fromJson(result.first);
+    if (result.length > 0) {
+      return sqfliteDbmodel.fromMap(result.first);
     }
 
     return null;
   }
+
+  Future<List<Map<String,dynamic>>> getDatainMaps() async{
+    final Database db = await initDb();
+    return db.query(_tablename);
+  }
+
+  Future<List<sqfliteDbmodel>> getModelsFromMapList() async{
+    List<Map<String,dynamic>> mapList = await getDatainMaps();
+
+    List<sqfliteDbmodel> toDoListModel = [];
+
+    for(int i = 0; i<mapList.length ; i++ ){
+      toDoListModel.add(sqfliteDbmodel.fromMap(mapList[i]));
+    }
+
+    return toDoListModel;
+  }
+
+
 }

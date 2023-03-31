@@ -35,35 +35,35 @@ class _page3state extends State<page3> {
     }
   }
 
-  // var _SqfliteDatabase;
+  var _SqfliteDatabase;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _SqfliteDatabase = sqfliteDatabase();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _SqfliteDatabase = sqfliteDatabase();
+  }
 
-  // signUp(String name, String email, String password) async {
+  signUp(String name, String email, String password) async {
 
-  //   String uname = nameController.text;
-  //   String email = emailController.text;
-  //   String passwd =passwordController.text;
+    String uname = nameController.text;
+    String email = emailController.text;
+    String passwd =passwordController.text;
 
-  //   if (formkey.currentState!.validate()) {
-  //     formkey.currentState?.save();
+    if (formkey.currentState!.validate()) {
+      formkey.currentState?.save();
 
-  //       sqfliteDbmodel uModel = sqfliteDbmodel(uname,email,passwd);
-  //       await _SqfliteDatabase.insertRecord(uModel).then((userData) {
-  //         alertDialog(context, "Successfully Saved");
+        sqfliteDbmodel uModel = sqfliteDbmodel(uname,email,passwd);
+        await _SqfliteDatabase.insertRecord(uModel).then((userData) {
+          alertDialog(context, "Successfully Saved");
 
-  //         Navigator.push(
-  //             context, MaterialPageRoute(builder: (_) => Page2()));
-  //       }).catchError((error) {
-  //         print(error);
-  //         alertDialog(context, "Error: Data Save Fail");
-  //       });
-  //     }
-  //   }
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => Page2()));
+        }).catchError((error) {
+          print(error);
+          alertDialog(context, "Error: Data Save Fail");
+        });
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class _page3state extends State<page3> {
                         padding: EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
                             onPressed: () {
-                              _insertData(
+                              signUp(
                                   nameController.text,
                                   emailController.text,
                                   passwordController.text);
@@ -164,22 +164,22 @@ class _page3state extends State<page3> {
         ));
   }
 
-  _insertData(String name, String email, String password) async {
-    if (formkey.currentState!.validate()) {
-      sqfliteDbmodel data =
-          sqfliteDbmodel(name: name, email: email, password: password);
-      var response = await sqfliteDatabase().insertRecord(data);
-
-      if (response != 0) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("sign up successfully.")));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("something wrong while inserting Record.")));
-      }
-      setState(() {
-        Navigator.pushNamed(context, 'page2');
-      });
-    }
-  }
+//   _insertData(String name, String email, String password) async {
+//     if (formkey.currentState!.validate()) {
+//       sqfliteDbmodel data =
+//           sqfliteDbmodel(name: name, email: email, password: password);
+//       var response = await sqfliteDatabase().insertRecord(data);
+//
+//       if (response != 0) {
+//         ScaffoldMessenger.of(context)
+//             .showSnackBar(SnackBar(content: Text("sign up successfully.")));
+//       } else {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//             SnackBar(content: Text("something wrong while inserting Record.")));
+//       }
+//       setState(() {
+//         Navigator.pushNamed(context, 'page2');
+//       });
+//     }
+//   }
 }

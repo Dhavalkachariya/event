@@ -6,6 +6,7 @@ import 'package:event/wedding.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:event/aboutus.dart';
+import 'package:event/profilepage.dart';
 
 class Page2 extends StatefulWidget {
   const Page2({super.key});
@@ -86,7 +87,7 @@ class _Page2State extends State<Page2> {
                 onTap: () {
                   changeSelected(0);
                   setState(() {
-                    Navigator.pushNamed(context, 'page2');
+                    Navigator.pushNamed(context, 'profile');
                   });
                 },
               ),
@@ -109,6 +110,9 @@ class _Page2State extends State<Page2> {
                 ),
                 onTap: () {
                   changeSelected(1);
+                  setState(() {
+                    Navigator.pushNamed(context, 'profile');
+                  });
                 },
               ),
               const Divider(

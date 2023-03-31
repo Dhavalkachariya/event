@@ -1,13 +1,14 @@
+
 import 'package:event/aboutus.dart';
 import 'package:event/bookevent.dart';
 import 'package:event/images.dart';
+import 'package:event/profilepage.dart';
 import 'package:flutter/material.dart';
 import 'dbhelper/model.dart';
 import 'homepage.dart';
 import 'signup.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'comHelper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:event/dbhelper/sqfliteDatabase.dart';
 
 void main() => runApp(MaterialApp(
@@ -18,6 +19,9 @@ void main() => runApp(MaterialApp(
         'page3': (context) => const page3(),
         'book': (context) => const book(),
         'about': (context) => const about(),
+        'profile': (context) => profile(),
+
+
       },
     ));
 
@@ -29,23 +33,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+
 
   String email = '';
   String password = '';
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  // GlobalKey<ScaffoldMessengerState> scaffoldKey =
-  //     GlobalKey<ScaffoldMessengerState>();
 
-  // moveToHome(BuildContext context) async {
-  //   final form = formkey.currentState!;
-  //   if (formkey.currentState!.validate()) {
-  //     setState(() {
-
-  //       Navigator.pushNamed(context, 'page2');
-  //     });
-  //   }
-  // }
 
   bool _isObscure = true;
 
@@ -74,13 +67,13 @@ class _HomePageState extends State<HomePage> {
     if (formkey.currentState!.validate()) {
       await _SqfliteDatabase.getLoginUser(uid, passwd).then((userData) {
         if (userData != null) {
-          // setSP(data).whenComplete(() {
+
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => Page2()),
               (Route<dynamic> route) => false);
           alertDialog(context, "login successfull");
-          // });
+
         } else {
           alertDialog(context, "Error: User Not Found");
         }
@@ -91,13 +84,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Future setSP(sqfliteDbmodel user) async {
-  //   final SharedPreferences sp = await _pref;
-  //   // sp.setString("user_id", user.user_id);
-  //   // sp.setString("user_name", user.user_name);
-  //   sp.setString("email", user.email);
-  //   sp.setString("password", user.password);
-  // }
+
 
   @override
   Widget build(BuildContext context) {
