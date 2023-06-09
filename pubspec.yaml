@@ -45,6 +45,11 @@ dependencies:
   url_launcher: ^6.1.7
   toast: ^0.2.9
   shared_preferences: ^2.0.17
+  firebase_auth:
+  cloud_firestore:
+  firebase_core:
+  table_calendar:
+  pay: ^1.1.0
   
   
 
@@ -75,6 +80,7 @@ flutter:
 
   assets:
     - assets/image/
+    - assets/
  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

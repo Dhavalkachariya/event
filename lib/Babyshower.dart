@@ -3,7 +3,28 @@ import 'package:flutter/material.dart';
 
 import 'bookevent.dart';
 
-class Babyshower extends StatelessWidget {
+class Babyshower extends StatefulWidget {
+  @override
+  State<Babyshower> createState() => _BabyshowerState();
+}
+
+class _BabyshowerState extends State<Babyshower> {
+  bool value =  false;
+
+  bool value1 = false;
+
+  bool value2 = false;
+
+  bool value3 = false;
+
+  bool value4 = false;
+
+  bool value5 = false;
+  bool value6 = false;
+  bool value7 = false;
+  bool value8 = false;
+  bool value9 = false;
+  bool value10 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +47,96 @@ class Babyshower extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage(babyshower), fit: BoxFit.fill)),
             ),
+            CheckboxListTile(
+              title: Text("Balloon"),
+              value: value,
+              onChanged: (newValue) {
+                setState(() {
+                  value = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Props"),
+              value: value1,
+              onChanged: (newValue) {
+                setState(() {
+                  value1 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Welcome standee"),
+              value: value2,
+              onChanged: (newValue) {
+                setState(() {
+                  value2 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Bukke"),
+              value: value3,
+              onChanged: (newValue) {
+                setState(() {
+                  value3 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Flower pots"),
+              value: value4,
+              onChanged: (newValue) {
+                setState(() {
+                  value4 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("cute out girl boy"),
+              value: value5,
+              onChanged: (newValue) {
+                setState(() {
+                  value5 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Baby shower latter"),
+              value: value6,
+              onChanged: (newValue) {
+                setState(() {
+                  value6 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Name letter"),
+              value: value7,
+              onChanged: (newValue) {
+                setState(() {
+                  value7 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Sitting platform"),
+              value: value8,
+              onChanged: (newValue) {
+                setState(() {
+                  value8 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
             Row(
               children: [
                 Padding(
@@ -46,8 +157,8 @@ class Babyshower extends StatelessWidget {
                           children: [
                             Container(
                               // padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  " balloon\n props\n flower \n welcome stendee \n flower pots \n cute out girl boy \n Baby shower latter \n name letter \n sitting platform"),
+                              // child: Text(
+                              //     " balloon\n props\n flower \n welcome stendee \n flower pots \n cute out girl boy \n Baby shower latter \n name letter \n sitting platform"),
                             )
                           ],
                         ),

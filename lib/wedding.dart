@@ -3,7 +3,26 @@ import 'package:flutter/material.dart';
 
 import 'bookevent.dart';
 
-class Wedding extends StatelessWidget {
+class Wedding extends StatefulWidget {
+  @override
+  State<Wedding> createState() => _WeddingState();
+}
+
+class _WeddingState extends State<Wedding> {
+  bool value =  false;
+
+  bool value1 = false;
+
+  bool value2 = false;
+
+  bool value3 = false;
+
+  bool value4 = false;
+
+  bool value5 = false;
+  bool value6 = false;
+  bool value7 = false;
+  bool value8 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +45,86 @@ class Wedding extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage(wedding), fit: BoxFit.fill)),
             ),
+            CheckboxListTile(
+              title: Text("Balloon"),
+              value: value,
+              onChanged: (newValue) {
+                setState(() {
+                  value = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Props"),
+              value: value1,
+              onChanged: (newValue) {
+                setState(() {
+                  value1 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Welcome standee"),
+              value: value2,
+              onChanged: (newValue) {
+                setState(() {
+                  value2 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Bukke"),
+              value: value3,
+              onChanged: (newValue) {
+                setState(() {
+                  value3 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Flower pots"),
+              value: value4,
+              onChanged: (newValue) {
+                setState(() {
+                  value4 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("Sound system"),
+              value: value5,
+              onChanged: (newValue) {
+                setState(() {
+                  value5 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("mayru"),
+              value: value6,
+              onChanged: (newValue) {
+                setState(() {
+                  value6 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
+            CheckboxListTile(
+              title: Text("ring tray"),
+              value: value6,
+              onChanged: (newValue) {
+                setState(() {
+                  value6 = newValue!;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+            ),
             Row(
               children: [
                 Padding(
@@ -46,8 +145,8 @@ class Wedding extends StatelessWidget {
                           children: [
                             Container(
                               // padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  " balloon\n props\n welcome standee \n flower pots \n bukee \n sound system \n mayru \n ring tray"),
+                              // child: Text(
+                              //     " balloon\n props\n welcome standee \n flower pots \n bukee \n sound system \n mayru \n ring tray"),
                             )
                           ],
                         ),

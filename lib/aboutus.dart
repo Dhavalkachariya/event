@@ -14,7 +14,7 @@ class about extends StatefulWidget {
 class _aboutState extends State<about> {
   @override
   Widget build(BuildContext context) {
-    final Uri whatsApp = Uri.parse('https://wa.me/9662013968');
+    final Uri whatsApp = Uri.parse("whatsapp://send?phone=9662013968");
     final Uri mail = Uri.parse(
         'mailto:connect.eventinfo01@gmail.com?subject=News&body=New%20plugin');
     return Scaffold(

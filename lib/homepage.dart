@@ -1,12 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event/Babyshower.dart';
+import 'package:event/event_calendar.dart';
 import 'package:event/haldi.dart';
 import 'package:event/images.dart';
 import 'package:event/birthday.dart';
+import 'package:event/setting/setting_screen.dart';
 import 'package:event/wedding.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:event/aboutus.dart';
 import 'package:event/profilepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:event/termsCondition.dart';
+
+
+ final auth = FirebaseAuth.instance;
+
+
 
 class Page2 extends StatefulWidget {
   const Page2({super.key});
@@ -25,6 +35,7 @@ class _Page2State extends State<Page2> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -35,43 +46,70 @@ class _Page2State extends State<Page2> {
         child: Drawer(
           child: ListView(
             children: [
-              DrawerHeader(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(drawerbackground),
-                          fit: BoxFit.cover)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image(
-                        image: AssetImage(drawerlogo),
-                        height: 70,
-                      ),
-                      Text(
-                        'Dhaval kachariya',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Dhaval@gmail.com',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.white,
-                          )
-                        ],
-                      )
-                    ],
-                  )),
+              StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection("eventuser").where("uid",isEqualTo: currentUser!.uid).snapshots(),
+                  builder: (context,AsyncSnapshot<QuerySnapshot> snapshot)
+              {
+                if(snapshot.hasData){
+
+                  return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context,i)
+                  {
+                    var data = snapshot.data!.docs[i];
+                    return UserAccountsDrawerHeader(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(drawerbackground),
+                                fit: BoxFit.cover)),
+                        accountName: Text(data['name'],style: TextStyle(fontSize: 35,color: Colors.amberAccent ),),
+                        accountEmail: Text(data['email'],style: TextStyle(fontSize: 25,color: Colors.amberAccent ),)
+                    );
+                  });
+                }else{
+                  return CircularProgressIndicator();
+                }
+              }
+              ),
+              // DrawerHeader(
+                  // decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //         image: AssetImage(drawerbackground),
+                  //         fit: BoxFit.cover)),
+                  // child: Column(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Image(
+                  //       image: AssetImage(drawerlogo),
+                  //       height: 70,
+                  //     ),
+                  //     Text(
+                  //       'Dhaval kachariya',
+                  //       style: TextStyle(
+                  //         fontSize: 30,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //     Row(
+                  //       children: [
+                  //         Text(
+                  //           'Dhaval@gmail.com',
+                  //           style: TextStyle(
+                  //             fontSize: 20,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //         Icon(
+                  //           Icons.arrow_drop_down,
+                  //           color: Colors.white,
+                  //         )
+                  //       ],
+                  //     )
+                  //   ],
+                  // )
+          // ),
               ListTile(
                 selected: _selected == 0,
                 leading: Icon(
@@ -87,7 +125,7 @@ class _Page2State extends State<Page2> {
                 onTap: () {
                   changeSelected(0);
                   setState(() {
-                    Navigator.pushNamed(context, 'profile');
+                    Navigator.pushNamed(context, 'page2');
                   });
                 },
               ),
@@ -134,6 +172,11 @@ class _Page2State extends State<Page2> {
                 ),
                 onTap: () {
                   changeSelected(2);
+                  setState(() {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (context) => new EventCalendarScreen())
+                    );
+                  });
                 },
               ),
               const Divider(
@@ -155,6 +198,11 @@ class _Page2State extends State<Page2> {
                 ),
                 onTap: () {
                   changeSelected(3);
+                  setState(() {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (context) => new term())
+                    );
+                  });
                 },
               ),
               const Divider(
@@ -176,6 +224,11 @@ class _Page2State extends State<Page2> {
                 ),
                 onTap: () {
                   changeSelected(4);
+                  setState(() {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (context) => new SettingsScreen())
+                    );
+                  });
                 },
               ),
               const Divider(

@@ -9,3 +9,4 @@ const String haldi1 = "assets/image/haldi1.jpeg";
 const String babyshower = "assets/image/baby.jpeg";
 const String wedding = "assets/image/wedding.jpeg";
 const String paymentQR = "assets/image/payment.jpg";
+const String avatar = "assets/image/avatar.png";

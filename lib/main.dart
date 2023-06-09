@@ -1,29 +1,36 @@
 
 import 'package:event/aboutus.dart';
+import 'package:event/adminpage.dart';
 import 'package:event/bookevent.dart';
 import 'package:event/images.dart';
 import 'package:event/profilepage.dart';
 import 'package:flutter/material.dart';
-import 'dbhelper/model.dart';
+import 'comHelper.dart';
 import 'homepage.dart';
 import 'signup.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'comHelper.dart';
-import 'package:event/dbhelper/sqfliteDatabase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:event/termsCondition.dart';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const HomePage(),
-        'page2': (context) => const Page2(),
-        'page3': (context) => const page3(),
-        'book': (context) => const book(),
-        'about': (context) => const about(),
-        'profile': (context) => profile(),
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    routes: {
+      '/': (context) => const HomePage(),
+      'page2': (context) => const Page2(),
+      'page3': (context) => const page3(),
+      'book': (context) => const book(),
+      'about': (context) => const about(),
+      'profile': (context) => profile(),
+      'term': (context) => term(),
 
 
-      },
-    ));
+    },
+  ));
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,39 +56,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isObscure = !_isObscure;
     });
-  }
-
-  // ignore: non_constant_identifier_names
-  var _SqfliteDatabase;
-
-  @override
-  void initState() {
-    super.initState();
-    _SqfliteDatabase = sqfliteDatabase();
-  }
-
-  login() async {
-    String uid = emailcontroller.text;
-    String passwd = passwordcontroller.text;
-
-    if (formkey.currentState!.validate()) {
-      await _SqfliteDatabase.getLoginUser(uid, passwd).then((userData) {
-        if (userData != null) {
-
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => Page2()),
-              (Route<dynamic> route) => false);
-          alertDialog(context, "login successfull");
-
-        } else {
-          alertDialog(context, "Error: User Not Found");
-        }
-      }).catchError((error) {
-        print(error);
-        alertDialog(context, "Error: Login Fail");
-      });
-    }
   }
 
 
@@ -222,12 +196,29 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      Text(email),
+
                       const SizedBox(
                         height: 30,
                       ),
                       GestureDetector(
-                        onTap: () => login(),
+                        onTap: () {
+                          if (formkey.currentState!.validate()) {
+                            FirebaseAuth.instance.signInWithEmailAndPassword(
+                              email: emailcontroller.text,
+                              password: passwordcontroller.text,
+                            )
+                                .then((user) {
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (_) => Page2()));
+                            }
+                            )
+                                .catchError((e) {
+                              print(e);
+                              alertDialog(context, "email or password invalid");
+                            });
+                          }
+                        },
+                        // => login(),
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
@@ -290,6 +281,17 @@ class _HomePageState extends State<HomePage> {
                         style:
                             TextStyle(color: Color.fromARGB(255, 58, 15, 201)),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (_) => adminpage()));
+
+                          },
+                          child: Text("Go to admin"),
+                      )
                     ],
                   ),
                 )
